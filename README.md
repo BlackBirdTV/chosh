@@ -1,4 +1,4 @@
-# CHOSH
+# CHOSH (WIP!!!)
 <p align="center">
   <img width="512" height="512" src="https://raw.githubusercontent.com/BlackBirdTV/chosh/main/chosh_icon.png">
 </p>
