@@ -1,0 +1,3 @@
+# Note that the CHOSH Calulator uses the Roslyn EvaluateAsync method for calculations, which for some reason cannot calculate decimals. I am working on it tho.
+print --noline "Calculation: " && print %calc:%getinp
+repeat
