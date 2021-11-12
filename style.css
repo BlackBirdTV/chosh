@@ -1,3 +1,92 @@
 html, body {
     background-color: #303030;
+    margin: 0;
+    font-family: "Nunito", sans-serif;
+    color:white;
+    overflow-x: hidden;
+}
+
+a {
+    color:#0084ff;
+    text-decoration: none;
+    border-bottom: 1px solid #0084ff;
+    padding: 1px;
+}
+
+.navbar {
+    height: 65px;
+    width: 100%;
+    background-color: #0084ff;
+    font-size: 50px;
+    padding-left: 20px;
+}
+
+.navbar-buttons {
+    
+    font-size: 18px;
+    float:right;
+    height: 55px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px;
+    padding-right: 25px;
+}
+
+.navbar-buttons a{
+    color:white;
+    text-decoration: none;
+    border-bottom: 2px solid #fff;
+}
+
+.navbar-buttons a:hover{
+    animation: scale-up 0.2s linear forwards;
+}
+
+.intro-image {
+    font-family: "Nunito", sans-serif;
+    font-weight: 200;
+    height: calc(100vh - 65px);
+    width: 100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(255,241,0);
+    background: -moz-linear-gradient(114deg, rgba(255,241,0,1) 0%, rgba(255,0,149,1) 100%);
+    background: -webkit-linear-gradient(114deg, rgba(255,241,0,1) 0%, rgba(255,0,149,1) 100%);
+    background: linear-gradient(114deg, rgba(255,241,0,1) 0%, rgba(255,0,149,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fff100",endColorstr="#ff0095",GradientType=1);
+}
+
+.intro-image div {
+    text-align: center;
+}
+
+.intro-image div .header {
+    font-size: 100px;
+}
+
+.intro-image div .footer{
+    font-size: 20px;
+}
+
+.content-wrapper{
+    margin: 15px;
+    width: 100%;
+    height: 100%;
+}
+
+.header-main {
+    font-size: 60px;
+}
+
+.page-footer {
+    height: 150px;
+    width: 100%;
+    background-color: #0084ff;
+    text-align: center;
+}
+@keyframes scale-up {
+    to {transform: scale(1.2);}
 }
