@@ -38,6 +38,7 @@ a {
     color:white;
     text-decoration: none;
     border-bottom: 2px solid #fff;
+    margin-left: 10px;
 }
 
 .navbar-buttons a:hover{
@@ -81,12 +82,63 @@ a {
     font-size: 60px;
 }
 
+.codeexample-left{
+    font-family: consolas,sans-serif;
+    float: left;
+    width: 48%;
+    margin-right: 10px;
+    background-color: #1c1c1c;
+    border: 1px solid #fff;
+    border-radius: 15px;
+}
+
+.codeexample-right{
+    font-family: consolas,sans-serif;
+    float: left;
+    width: 48%;
+    background-color: #1c1c1c;
+    border: 1px solid #fff;
+    border-radius: 15px;
+}
+
+.codeexample-left div.code, .codeexample-right div.code {
+    width: calc(100% - 10px);
+    padding: 5px;
+}
+
+.lang-bar {
+    width: 100%;
+    background-color: #0084ff;
+    border-radius: 15px  15px 0 0;
+    text-align: center;
+}
+
 .page-footer {
     height: 150px;
     width: 100%;
     background-color: #0084ff;
     text-align: center;
 }
+
+.download {
+    background-color: lime;
+    font-size: 50px;
+    padding: 5px;
+    border: 0px solid;
+    border-radius: 23px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+
+.download:hover {
+    background-color: #0084ff;
+}
+
+.center-content {
+    width: 100%;
+    text-align: center;
+}
+
 @keyframes scale-up {
     to {transform: scale(1.2);}
 }
