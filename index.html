@@ -9,13 +9,46 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/4380e5fb15.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="navbar">CHOSH<div class="navbar-buttons"><a href="https://www.github.com/BlackBirdTV/chosh">Git REPO</a></div></div>
+    <div class="navbar">CHOSH<div class="navbar-buttons"><a href="download-page.html">Download</a><a href="https://www.github.com/BlackBirdTV/chosh">Git REPO</a></div></div>
     <div class="intro-image"><div><span class="header">simplicity.</span><span class="footer"><br>Here is CHOSH.</span></div></div>
     <div class="content-wrapper">
         <span class="header-main">What is CHOSH?</span><br>
         CHOSH is a basic, bash-like shell written in C#. It uses the chronoTerminal text-based interface, the sublib parser and QUSO for extensions. CHOSH supports inline C#, Python and Powershell code and so called functions (commands that can be used in every script and in chronoTerminal) written in C#, Python or CHOSH. CHOSH is (mostly) open-source, issue reports can and feature requests can be put onto the <a href="https://www.github.com/BlackBirdTV/chosh/">Git Repo</a>.
+        <br><br>
+        <span class="header-main">Why should I use CHOSH?</span><br>
+        Just look at this Calculator:<br>
+        <div style="height:290px;">
+            <div class="codeexample-left">
+                <div class="lang-bar">bash</div>
+            <div class="code">"#!/bin/bash<br>
+            echo "Operation: "<br>
+            read operation<br>
+            result=$((operation))<br>
+            echo $result<br>
+            while [ true ] ; do<br>
+                read -t 3 -n 1<br>
+                if [ $? = 0 ] ; then<br>
+                    bash ./calc.sh<br>
+                else<br>
+                    echo "waiting for the keypress"<br>
+                fi<br>
+            done<br>
+            </div>
+            </div>
+            <div class="codeexample-right">
+            <div class="lang-bar">chosh</div>
+            <div class="code">
+            print "Operation: " --noline<br>
+            print %calc:%getinp<br>
+            waitforkey<br>
+            repeat
+            </div>
+            </div>
+        </div>
+        See? CHOSH is made to have the same functionality in less syntax. Also, CHOSH's code is fully open-source. Also, you can find a Documentation on the GitHub Repo. With CHOSH, <b>ANYONE</b> is able to write simple aplications.
     </div>
     <div class="page-footer">
         <br><br><br>
