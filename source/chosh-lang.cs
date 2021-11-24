@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +10,8 @@ using System.Diagnostics;
 using Microsoft.Scripting.Hosting;
 using IronPython.Hosting;
 using System.Reflection;
+using System.Media;
+using System.IO.Compression;
 
 namespace CHOSH
 {
@@ -42,7 +44,8 @@ namespace CHOSH
     class chosh
     {
         public static List<Variable> variables = new();
-        public static string[] extensions = Directory.GetFiles(Assembly.GetEntryAssembly().Location + @"/ext/");
+        public static string[] extensions = Directory.GetFiles(Assembly.GetEntryAssembly().Location[..Assembly.GetEntryAssembly().Location.LastIndexOf("\\")] + @"/ext/");
+
         public static void Exec(Command command)
         {
             try
@@ -143,6 +146,21 @@ namespace CHOSH
                         }
 
                         process.WaitForExit();
+                        break;
+                    case "restart":
+                        Program.Main(Array.Empty<string>());
+                        break;
+                    case "exit":
+                        Program.terminate = true;
+                        break;
+                    case "playsound":
+                        using (var soundPlayer = new SoundPlayer(command.args[0]))
+                        {
+                            soundPlayer.PlaySync(); // can also use soundPlayer.PlaySync()
+                        }
+                        break;
+                    case "chex":
+                        ExecCHEX(command.args[0]);
                         break;
                     default:
                         bool isextcmd = false;
@@ -332,6 +350,7 @@ namespace CHOSH
             }
             return text;
         }
+
         public static string txtEditorNS()
         {
             string text = "";
@@ -352,6 +371,34 @@ namespace CHOSH
                 }
             }
             return text;
+        }
+
+        public static void ExecCHEX(string file)
+        {
+            char slash = '\\';
+            if (file.Contains("/"))
+            {
+                slash = '/';
+            }
+            string FolderName = file[file.LastIndexOf(slash)..file.LastIndexOf(".")];
+            string assetsFolder = $"{Path.GetTempPath() + slash}chexAppCache{slash + FolderName + slash}";
+            if (Directory.Exists(assetsFolder))
+            {
+                Directory.Delete(assetsFolder, true);
+            }
+            ZipFile.ExtractToDirectory(file, assetsFolder);
+            if (File.Exists($"{assetsFolder}start.chosh"))
+            {
+                foreach (string line in File.ReadAllLines($"{assetsFolder}start.chosh"))
+                {
+                    string parsedline = "";
+                    if (line.Contains("%assets:"))
+                    {
+                        parsedline = line.Replace("%assets:", assetsFolder);
+                    }
+                    Program.Run(parsedline);
+                }
+            }
         }
     }
 }
