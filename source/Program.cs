@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.IO;
 using CHOSH;
 using System.Runtime.InteropServices;
+using System.IO.Compression;
 
 namespace chronoTerminal
 {
@@ -14,6 +15,8 @@ namespace chronoTerminal
         public static bool fileexec = false;
         public static bool shortMode = false;
         public static string OS = "Unknown";
+        public static bool terminate = false;
+        public static string FolderName = "";
         public static void Main(string[] args)
         {
             Console.Clear();
@@ -32,7 +35,12 @@ namespace chronoTerminal
                         {
                             foreach (string command in line.Split("&&"))
                             {
-                                if (command == "repeat") { Main(args); chosh.variables = new System.Collections.Generic.List<Variable>(); }
+                                string useablecommand = command;
+                                while(useablecommand.StartsWith(" "))
+                                {
+                                    useablecommand = useablecommand[1..];
+                                }
+                                if (command.StartsWith("repeat")) { Main(args); chosh.variables = new System.Collections.Generic.List<Variable>(); }
                                 else if (line.Length > 0 && line.Split().Length > 0)
                                 {
                                     chosh.Exec(sublib.Parse(command));
@@ -41,13 +49,22 @@ namespace chronoTerminal
                         }
                         else
                         {
-                            if (line == "repeat") { Main(args); chosh.variables = new System.Collections.Generic.List<Variable>(); }
-                            else if (line.Length > 0 && line.Split().Length > 0)
+                            string useableline = line;
+                            while(useableline.StartsWith(" "))
                             {
-                                chosh.Exec(sublib.Parse(line));
+                                useableline = useableline[1..];
+                            }
+                            if (useableline.StartsWith("repeat")) { Main(args); chosh.variables = new System.Collections.Generic.List<Variable>(); }
+                            else if (useableline.Length > 0 && useableline.Split().Length > 0)
+                            {
+                                chosh.Exec(sublib.Parse(useableline));
                             }
                         }
                     }
+                }
+                else if (args[0].EndsWith(".chex"))
+                {
+                    chosh.ExecCHEX(args[0]);
                 }
             }
             // If there are none
@@ -73,13 +90,14 @@ namespace chronoTerminal
                     return;
                 }
                 string shell = "chosh";
-                string version = "1.0";
+                string version = "2.0";
                 string prefix = "\u00A2";
                 string machinename = Environment.MachineName;
                 string username = Environment.UserName;
                 Console.WriteLine($"chronoTerminal with {shell} Ver. {version} loaded.");
                 while (true)
                 {
+                    if (terminate) { return; }
                     if (updateenv) { updateenv = false; Console.Clear(); Main(Array.Empty<string>()); return; }
                     Console.ForegroundColor = ConsoleColor.White;
                     if (!shortMode)
@@ -106,7 +124,7 @@ namespace chronoTerminal
             }
         }
 
-        static void Run(string cmd)
+        public static void Run(string cmd)
         {
             while (cmd.StartsWith(" "))
             {
@@ -121,7 +139,7 @@ namespace chronoTerminal
                     {
                         usablecommand = usablecommand[1..];
                     }
-                    if (usablecommand == "repeat") { Run(cmd); chosh.variables = new System.Collections.Generic.List<Variable>(); }
+                    if (usablecommand.StartsWith("repeat")) { Run(cmd); chosh.variables = new System.Collections.Generic.List<Variable>(); }
                     else if (usablecommand.Length > 0 && usablecommand.Split().Length > 0)
                     {
                         chosh.Exec(sublib.Parse(usablecommand));
