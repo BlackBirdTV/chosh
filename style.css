@@ -138,7 +138,7 @@ a {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0084ff;
 }
 
 /* Handle */
